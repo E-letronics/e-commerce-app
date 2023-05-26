@@ -1,0 +1,108 @@
+.signup {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  position: fixed;
+  grid-template-columns: 1.8fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.leftscreen {
+  grid-column: 1;
+  grid-row: 1;
+  background-color: #f6f6f6;
+  align-items: center;
+  padding: 190px 110px 10px;
+  font-family: 'DM Sans';
+  font-size: xx-large;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.icon {
+  order: -1;
+  align-self: flex-start;
+  color: #f6f6f6;
+  background-color: #0ACF83;
+  width: 8vh;
+  height: 8vh;
+  border-radius: 12px; /*round borders*/
+  font-size: 6vh;
+  text-align: center;
+}
+
+.rightscreen {
+  grid-column: 2;
+  grid-row: 1;
+  background-color: #0ACF83;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0px 0px 15px 0px;
+}
+
+.form_wrapper{
+  background-color: #f6f6f6;
+  height: 80vh;
+  width: 55vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.form_title{
+  order: -1;
+  margin-left: 10%;
+  font-family: 'Arial';
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+}
+
+.input{
+  width: 70%;
+  height: 5vh;
+  margin-left: 10%;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid;
+  border-color: #7f7f7f;
+  border-radius: 4px;
+  box-shadow: none;
+  padding: 5px;
+}
+
+.label_wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.label{
+  font-family: 'DM Sans';
+  margin-left: 10%;
+}
+
+.label::after{
+  content: ' *';
+  color: red;
+}
+
+.btn{
+  width: 73%;
+  margin-top: 5%;
+  height: 5vh;
+  margin-left: 10%;
+  background-color: black;
+  color: #f6f6f6;
+  border: 1px solid;
+  border-color: black;
+  border-radius: 4px;
+  font-family: 'DM Sans';
+}
