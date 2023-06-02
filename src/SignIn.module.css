@@ -37,8 +37,20 @@
   flex-direction: column;
 }
 
-.label{
+.label_header{
   font-family: 'DM Sans';
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.label{
+  padding-right: 10%;
+}
+
+.required {
+  color: red;
+  font-size: small;
 }
 
 .input{
@@ -48,6 +60,18 @@
   background-color: transparent;
   border: 1px solid;
   border-color: #7f7f7f;
+  border-radius: 4px;
+  box-shadow: none;
+  padding: 5px;
+}
+
+.invalid_input{
+  width: 40vh;
+  height: 5vh;
+  outline: none;
+  background-color: transparent;
+  border: 1px solid;
+  border-color: red;
   border-radius: 4px;
   box-shadow: none;
   padding: 5px;
@@ -101,4 +125,3 @@
   text-decoration: underline;
   cursor: pointer;
 }
-
