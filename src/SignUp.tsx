@@ -8,6 +8,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [response, setResponse] = useState("");
+  const [registered, setRegistered] = useState("");
 
   function handleInputChange(event: any) {
     setSignupForm((p) => ({
@@ -17,14 +18,14 @@ function SignUp() {
   }
 
   function handleSubmit(event: any) {
-    setEmail(signupForm.email!);
-    setPassword(signupForm.password!);
+    setEmail(event.target.email.value);
+    setPassword(event.target.password.value);
     event.preventDefault();
-
+    console.log(event.target.email, event.target.password)
     axios({
       method: 'POST',
-      baseURL: 'http://api.fakeshop-api.com',
-      url: '/users/signup',
+      baseURL: 'http://localhost:3001/',
+      url: '',
       data: {
         email,
         password,
@@ -32,9 +33,11 @@ function SignUp() {
     })
     .then(({data}: any) => {
       setResponse(data);
-      localStorage.setItem('token', data.token);
+      console.log(data);
     })
-    .catch((err:any) => console.dir(err))
+    .catch((err:any) => {
+      console.log(err.response.data);
+    })
   }
 
   return (
@@ -61,6 +64,7 @@ function SignUp() {
             </label>
             <label className={styles.label_wrapper}>
               <h3 className={styles.label}>Email</h3>
+              <p className={styles.registered}>Email already registered</p>
               <input
                 className={styles.input}
                 onChange={handleInputChange}

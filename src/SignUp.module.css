@@ -87,6 +87,12 @@
 .label{
   font-family: 'DM Sans';
   margin-left: 10%;
+  display: flex;
+  flex-direction: row;
+}
+
+.registered {
+  font-size: small;
 }
 
 .label::after{
