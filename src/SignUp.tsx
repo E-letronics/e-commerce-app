@@ -1,42 +1,56 @@
 import styles from './SignUp.module.css';
 import { useState } from 'react';
-import { SignUpFormDto } from './dto/SignUpEventDto';
 import axios from 'axios';
+import { Errors } from './AppConstants';
+import {useNavigate} from 'react-router-dom';
 
 function SignUp() {
-  const [signupForm, setSignupForm] = useState<SignUpFormDto>({});
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [response, setResponse] = useState("");
-  const [registered, setRegistered] = useState("");
+  const [registered, setRegistered] = useState('');
+  const [emailStyle, setEmailStyle] = useState(styles.input);
+  const [emptyPass, setEmptyPass] = useState('');
+  const [passStyle, setPassStyle] = useState(styles.input);
+  const navigate = useNavigate();
 
   function handleInputChange(event: any) {
-    setSignupForm((p) => ({
-      ...p,
-      [event.target.name]: event.target.value,
-    }));
+    setEmailStyle(styles.input);
+    setRegistered('');
+    setPassStyle(styles.input);
+    setEmptyPass('');
   }
 
   function handleSubmit(event: any) {
-    setEmail(event.target.email.value);
-    setPassword(event.target.password.value);
     event.preventDefault();
-    console.log(event.target.email, event.target.password)
+
+    if(!event.target.password.value){
+      setPassStyle(styles.invalid);
+      setEmptyPass('Password is required');
+      return;
+    }
+
+    const request = {
+      email: event.target.email.value,
+      password: event.target.password.value,
+      name: event.target.name.value
+    }
+    console.log(request);
+    
     axios({
       method: 'POST',
       baseURL: 'http://localhost:3001/',
       url: '',
-      data: {
-        email,
-        password,
-      },
+      data: request,
     })
     .then(({data}: any) => {
-      setResponse(data);
       console.log(data);
+      navigate('/signin');
+
     })
     .catch((err:any) => {
       console.log(err.response.data);
+      if(err.response.data.code === Errors.EMAIL_REGISTERED){
+        setRegistered('Email already registered');
+        setEmailStyle(styles.invalid);
+      }
     })
   }
 
@@ -56,17 +70,18 @@ function SignUp() {
               <h3 className={styles.label}>Name</h3>
               <input
                 className={styles.input}
-                onChange={handleInputChange}
                 placeholder="Name"
                 name="name"
                 type="text"
               />
             </label>
             <label className={styles.label_wrapper}>
-              <h3 className={styles.label}>Email</h3>
-              <p className={styles.registered}>Email already registered</p>
+              <div className={styles.label_header}>
+                <h3 className={styles.label}>Email</h3>
+                <p className={styles.warning}>{registered}</p>
+              </div>
               <input
-                className={styles.input}
+                className={emailStyle}
                 onChange={handleInputChange}
                 placeholder="Email"
                 name="email"
@@ -74,9 +89,12 @@ function SignUp() {
               />
             </label>
             <label className={styles.label_wrapper}>
-              <h3 className={styles.label}>Password</h3>
+              <div className={styles.label_header}>
+                <h3 className={styles.label}>Password</h3>
+                <p className={styles.warning}>{emptyPass}</p>
+              </div>
               <input
-                className={styles.input}
+                className={passStyle}
                 onChange={handleInputChange}
                 placeholder="Password"
                 name="password"
